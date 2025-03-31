@@ -1,192 +1,113 @@
 <!DOCTYPE html>
 <html lang="sq">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SHQIP NEWS - Arrest i madh në Gjermani: 13.5 kg kokainë në Audi A4</title>
-    <style>
-        :root {
-            --primary: #d32f2f;
-            --secondary: #1976d2;
-            --dark: #222;
-            --light: #f5f5f5;
-            --gray: #777;
-        }
-        body {
-            font-family: 'Georgia', serif;
-            line-height: 1.7;
-            color: #333;
-            margin: 0;
-            padding: 0;
-            background: #f9f9f9;
-        }
-        .news-header {
-            background-color: var(--dark);
-            color: white;
-            padding: 15px 0;
-            border-bottom: 4px solid var(--primary);
-        }
-        .news-header h1 {
-            margin: 0;
-            font-size: 2.2rem;
-            text-align: center;
-            font-weight: 700;
-        }
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        .article-header {
-            margin-bottom: 30px;
-        }
-        .article-title {
-            font-size: 2.5rem;
-            color: var(--dark);
-            margin-bottom: 10px;
-            line-height: 1.3;
-        }
-        .article-meta {
-            color: var(--gray);
-            font-size: 0.9rem;
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 15px;
-            margin-bottom: 20px;
-        }
-        .article-content {
-            font-size: 1.1rem;
-        }
-        .photo-gallery {
-            display: flex;
-            gap: 20px;
-            margin: 30px 0;
-            flex-wrap: wrap;
-        }
-        .photo-card {
-            flex: 1;
-            min-width: 200px;
-            background: white;
-            border-radius: 5px;
-            overflow: hidden;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-        }
-        .photo-card img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-        .photo-caption {
-            padding: 12px;
-            font-size: 0.9rem;
-            color: var(--gray);
-            border-top: 1px solid #eee;
-			
-        }
-        .highlight-box {
-            background: var(--light);
-            border-left: 4px solid var(--primary);
-            padding: 20px;
-            margin: 30px 0;
-        }
-        .conclusion {
-            font-weight: bold;
-            font-size: 1.1rem;
-            margin: 40px 0;
-            padding-top: 20px;
-            border-top: 2px dashed #ccc;
-        }
-        .news-footer {
-            background: var(--dark);
-            color: white;
-            padding: 20px;
-            text-align: center;
-            margin-top: 50px;
-            font-size: 0.9rem;
-        }
-        @media (max-width: 768px) {
-            .photo-gallery {
-                flex-direction: column;
-            }
-            .article-title {
-                font-size: 1.8rem;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Llogaritësi i Hapësirës në Playlist</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f4f4;
+      padding: 40px;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    }
+    label {
+      display: block;
+      margin-top: 20px;
+      font-size: 16px;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      margin-top: 5px;
+    }
+    button {
+      margin-top: 30px;
+      padding: 12px 20px;
+      font-size: 16px;
+      background-color: #0078D7;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #005a9e;
+    }
+    .result {
+      margin-top: 30px;
+      font-size: 18px;
+      color: #333;
+      white-space: pre-line;
+    }
+  </style>
 </head>
 <body>
-    <header class="news-header">
-        <div class="container">
-            <h1>SHQIP NEWS</h1>
-        </div>
-    </header>
+  <div class="container">
+    <h2>Llogaritësi i Hapësirës në Playlist</h2>
 
-    <main class="container">
-        <article>
-            <header class="article-header">
-                <div class="article-meta">
-                    Freiburg, Gjermani | 10 Nentor 2024 | Autor: Redaksia
-                </div>
-                <h1 class="article-title">Arrest i madh në Gjermani: Shqiptar 30-vjeçar kapet me 13.5 kg kokainë në Audi A4</h1>
-            </header>
+    <label for="startTime">Ora e fillimit ("now" ose HH:mm:ss):</label>
+    <input type="text" id="startTime" value="now">
 
-            <div class="article-content">
-                <p><strong>Policia gjermane ka kryer një nga arrestimet më të mëdha të këtij viti në Freiburg, ku një shqiptar 30-vjeçar është kapur me 13.5 kilogramë kokainë të fshehur në një Audi A4 gri.</strong></p>
+    <label for="duration">Kohëzgjatja e videos (HH:mm:ss):</label>
+    <input type="text" id="duration">
 
-                <div class="photo-gallery">
-                    <div class="photo-card">
-                        <img src=".\audi-a4-gray.jpeg" alt="Makina e përdorur për trafikun e drogës">
-                        <div class="photo-caption">Audi A4 gri ku u gjetën 13.5 kg kokainë (Foto: Policia e Freiburgut)</div>
-                    </div>
-                    <div class="photo-card">
-                        <img src="elton-llulla.jpeg" alt="Elton Llulla i arrestuar">
-                        <div class="photo-caption">Elton Llulla (30 vjeç) në foto të marrë nga policia pas arrestimit</div>
-                    </div>
-                </div>
+    <label for="endTime">Ora e përfundimit të dëshiruar (HH:mm:ss):</label>
+    <input type="text" id="endTime">
 
-                <p>Operacioni policor, i cili zgjatui disa muaj, përfundoi me arrestimin e <strong>Elton Llullës</strong>, të cilin autoritetet e quanë si "një lidhje kyçe" në një rrjet ndërkombëtar trafiku drogash.</p>
+    <button onclick="calculateGap()">Llogarit</button>
 
-                <h2>Si u zbulua?</h2>
-                <p>Sipas burimeve policore, Llulla ishte nën vëzhgim prej disa kohësh. Kontrolli përfundimtar u krye në autostradën A5, pranë Freiburgut:</p>
-                
-                <ul>
-                    <li>Makina e tij, një Audi A4 gri e vjetër, u ndal për kontrolle rutinë</li>
-                    <li>Kërcënimi i qenit policor reagoi pozitivisht</li>
-                    <li>Pas kërkimit, u zbuluan 13 pako plastike me kokainë të pastër</li>
-                    <li>Droga ishte e fshehur në ndërtime të veçanta në tapicerinë e makinës</li>
-                </ul>
+    <div class="result" id="result"></div>
+  </div>
 
-                <div class="highlight-box">
-                    <h3>Çfarë rreziku përbën kjo sasi drogë?</h3>
-                    <p>13.5 kg kokainë mund të prodhojnë rreth 135,000 doza për përdorim, me vlerë tregu prej <strong>3-4 milionë euro</strong> sipas ekspertëve.</p>
-                </div>
+  <script>
+    function parseTime(str) {
+      const [hours, minutes, seconds] = str.split(":" ).map(Number);
+      const now = new Date();
+      now.setHours(hours, minutes, seconds || 0, 0);
+      return now;
+    }
 
-                <h2>Profil i të dyshuarit</h2>
-                <p>Elton Llulla, 30 vjeç, me prejardhje nga Shqipëria, jetoi në Gjermani për 8 vitet e fundit. Sipas fqinjëve, "punonte si IT" dhe "nuk shfaqte shenja pasurie".</p>
+    function calculateGap() {
+      const startInput = document.getElementById("startTime").value.trim();
+      const durationInput = document.getElementById("duration").value.trim();
+      const endInput = document.getElementById("endTime").value.trim();
+      const result = document.getElementById("result");
 
-                <p>Prokuroria e Freiburgut tha për SHQIP NEWS: <em>"Ky është një nga rastet më të mëdha të trafikut të drogës në rajonin tonë të 5 viteve të fundit. Ne besojmë se ai nuk vepronte vetëm."</em></p>
+      try {
+        const now = new Date();
+        const start = (startInput.toLowerCase() === "now") ? now : parseTime(startInput);
 
-                <h2>Çfarë pret të arrestuari?</h2>
-                <p>Nëse dënohet, Llulla përballet me:</p>
-                <ul>
-                    <li>Deri në 15 vjet burg në Gjermani</li>
-                    <li>Konfiskim të të gjitha pasurive</li>
-                    <li>Dëbim përhershëm nga Gjermania pas dënimit</li>
-                </ul>
+        const [durHours, durMinutes, durSeconds] = durationInput.split(":" ).map(Number);
+        const videoEnd = new Date(start.getTime());
+        videoEnd.setHours(videoEnd.getHours() + durHours);
+        videoEnd.setMinutes(videoEnd.getMinutes() + durMinutes);
+        videoEnd.setSeconds(videoEnd.getSeconds() + (durSeconds || 0));
 
-                <div class="conclusion">
-                    <p>📌 <strong>Rasti aktualisht është në fazën e hetimit.</strong> Policia nuk e përjashton mundësinë që të arrestojë edhe të tjerë të përfshirë në këtë rrjet trafiku.</p>
-                </div>
+        const desiredEnd = parseTime(endInput);
+        const gapMillis = desiredEnd - videoEnd;
 
-                <p><em>Lexoni edhe:</em> <a href="#">Trafiku i drogës në Europë: Rruga e kokainës nga Amerika e Jugut</a></p>
-            </div>
-        </article>
-    </main>
-
-    <footer class="news-footer">
-        <div class="container">
-            <p>© 2024 SHQIP NEWS - Të gjitha të drejtat e rezervuara</p>
-            <p>info@shqipnews.com | +355 69 5242621</p>
-        </div>
-    </footer>
+        if (gapMillis > 0) {
+          const hours = Math.floor(gapMillis / (1000 * 60 * 60));
+          const minutes = Math.floor((gapMillis % (1000 * 60 * 60)) / (1000 * 60));
+          const seconds = Math.floor((gapMillis % (1000 * 60)) / 1000);
+          result.textContent = `🎬 Video përfundon në: ${videoEnd.toTimeString().substring(0,8)}\n⏱️ Hapësira: ${hours} orë, ${minutes} minuta, ${seconds} sekonda`;
+        } else {
+          result.textContent = `⚠️ Video përfundon pas ose në të njëjtën kohë me orën e caktuar.\nVideo përfundon në: ${videoEnd.toTimeString().substring(0,8)}`;
+        }
+      } catch (e) {
+        result.textContent = "❌ Formati gabim! Përdor stilin HH:mm:ss (p.sh. 20:15:00)";
+      }
+    }
+  </script>
 </body>
 </html>
