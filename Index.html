@@ -1,113 +1,450 @@
 <!DOCTYPE html>
-<html lang="sq">
+<html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <title>Llogaritësi i Hapësirës në Playlist</title>
+  <meta charset="UTF-8" />
+  <title>Job-Navigator | Schülerlotse</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <style>
+    :root {
+      --bg-gradient-start: #0f172a;
+      --bg-gradient-end: #1e293b;
+      --card-bg: rgba(15, 23, 42, 0.96);
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.12);
+      --text-main: #e5e7eb;
+      --text-muted: #9ca3af;
+      --border-subtle: rgba(148, 163, 184, 0.3);
+      --radius-xl: 1.5rem;
+      --shadow-soft: 0 22px 60px rgba(15, 23, 42, 0.65);
+      --transition-fast: 180ms ease-out;
+      --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #f4f4f4;
-      padding: 40px;
+      margin: 0;
+      min-height: 100vh;
+      font-family: var(--font-sans);
+      color: var(--text-main);
+      background: radial-gradient(circle at top, #1d4ed8 0, transparent 55%),
+        radial-gradient(circle at bottom, #22c55e 0, transparent 55%),
+        linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
     }
-    .container {
-      max-width: 600px;
-      margin: auto;
-      background: white;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.2);
-    }
-    label {
-      display: block;
-      margin-top: 20px;
-      font-size: 16px;
-    }
-    input {
+
+    .wrapper {
       width: 100%;
-      padding: 10px;
-      font-size: 16px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      margin-top: 5px;
+      max-width: 720px;
     }
-    button {
-      margin-top: 30px;
-      padding: 12px 20px;
-      font-size: 16px;
-      background-color: #0078D7;
-      color: white;
-      border: none;
-      border-radius: 6px;
+
+    header {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    header h1 {
+      font-size: clamp(2rem, 3vw, 2.4rem);
+      margin: 0 0 0.5rem;
+      letter-spacing: 0.03em;
+    }
+
+    header h1 span {
+      background: linear-gradient(120deg, #38bdf8, #a855f7, #22c55e);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    header p {
+      margin: 0;
+      font-size: 0.98rem;
+      color: var(--text-muted);
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-soft);
+      border: 1px solid var(--border-subtle);
+      padding: 1.75rem 1.9rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top left, #38bdf8 0, transparent 55%);
+      opacity: 0.05;
+      pointer-events: none;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.18rem 0.7rem;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 0.78rem;
+      font-weight: 500;
+      margin-bottom: 0.75rem;
+    }
+
+    .chip-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 6px rgba(56, 189, 248, 0.25);
+    }
+
+    .question {
+      display: none;
+      position: relative;
+      z-index: 1;
+    }
+
+    .question.active {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .step-label {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+      margin-bottom: 0.3rem;
+    }
+
+    .question-title {
+      font-size: 1.35rem;
+      font-weight: 600;
+      margin: 0 0 0.4rem;
+    }
+
+    .question-subtitle {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin: 0;
+      max-width: 34rem;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 0.75rem;
+    }
+
+    .btn {
+      border-radius: 999px;
+      border: 1px solid transparent;
+      padding: 0.65rem 1.25rem;
+      font-size: 0.95rem;
+      font-weight: 500;
       cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: transform var(--transition-fast),
+        box-shadow var(--transition-fast), background var(--transition-fast),
+        border-color var(--transition-fast), color var(--transition-fast);
+      white-space: nowrap;
     }
-    button:hover {
-      background-color: #005a9e;
+
+    .btn.primary {
+      background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+      color: #0b1120;
+      box-shadow: 0 14px 35px rgba(56, 189, 248, 0.45);
     }
-    .result {
-      margin-top: 30px;
-      font-size: 18px;
-      color: #333;
-      white-space: pre-line;
+
+    .btn.primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 18px 40px rgba(56, 189, 248, 0.6);
+    }
+
+    .btn.ghost {
+      background: rgba(15, 23, 42, 0.75);
+      color: var(--text-main);
+      border-color: rgba(148, 163, 184, 0.5);
+    }
+
+    .btn.ghost:hover {
+      background: rgba(30, 64, 175, 0.5);
+      border-color: #38bdf8;
+      transform: translateY(-1px);
+    }
+
+    .btn-icon {
+      font-size: 1.15rem;
+      line-height: 1;
+    }
+
+    .hint {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 0.3rem;
+    }
+
+    .footer-note {
+      margin-top: 1rem;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-align: center;
+    }
+
+    @media (max-width: 640px) {
+      .card {
+        padding: 1.4rem 1.3rem 1.5rem;
+        border-radius: 1.2rem;
+      }
+
+      .actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .btn {
+        justify-content: center;
+        width: 100%;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h2>Llogaritësi i Hapësirës në Playlist</h2>
+  <div class="wrapper">
+    <header>
+      <h1><span>Job-Navigator</span></h1>
+      <p>Finde in wenigen Klicks dein nächstes Angebot rund um Beruf, Ausbildung & Studium.</p>
+    </header>
 
-    <label for="startTime">Ora e fillimit ("now" ose HH:mm:ss):</label>
-    <input type="text" id="startTime" value="now">
+    <main class="card" aria-label="Job-Navigator Fragen">
+      <div class="chip">
+        <span class="chip-dot"></span>
+        Schüler:innen · Jugendliche · Studienzweifler:innen · Eltern
+      </div>
 
-    <label for="duration">Kohëzgjatja e videos (HH:mm:ss):</label>
-    <input type="text" id="duration">
+      <!-- Frage 1 -->
+      <section class="question active" data-step="1">
+        <div>
+          <div class="step-label">Frage 1 von 4</div>
+          <h2 class="question-title">
+            Du weißt noch nicht, was du später einmal arbeiten möchtest und suchst deinen Traumberuf?
+          </h2>
+          <p class="question-subtitle">
+            Wir unterstützen dich mit einem Berufsprofiling und passenden Impulsen zu deinen Stärken.
+          </p>
+        </div>
 
-    <label for="endTime">Ora e përfundimit të dëshiruar (HH:mm:ss):</label>
-    <input type="text" id="endTime">
+        <div class="actions">
+          <!-- Test-Link: Google -->
+          <a
+            class="btn primary"
+            href="https://www.google.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span class="btn-icon">✅</span>
+            <span>Ja, ich brauche Orientierung</span>
+          </a>
 
-    <button onclick="calculateGap()">Llogarit</button>
+          <button class="btn ghost btn-next" type="button">
+            <span>Nein, ich weiß es schon</span>
+            <span class="btn-icon">➜</span>
+          </button>
 
-    <div class="result" id="result"></div>
+          <!-- Neuer Button: direkt zur nächsten Frage -->
+          <button class="btn ghost btn-next" type="button">
+            <span>Weiter zur nächsten Frage</span>
+            <span class="btn-icon">➜</span>
+          </button>
+        </div>
+
+        <p class="hint">
+          Hinweis: Für alle <code>href</code>-Links kannst du im Code eure echten IHK-Seiten hinterlegen.
+        </p>
+      </section>
+
+      <!-- Frage 2 -->
+      <section class="question" data-step="2">
+        <div>
+          <div class="step-label">Frage 2 von 4</div>
+          <h2 class="question-title">
+            Hast du Fragen zu deiner Bewerbung?
+          </h2>
+          <p class="question-subtitle">
+            Wir schauen gemeinsam auf deine Unterlagen und geben dir Feedback zu Anschreiben, Lebenslauf &amp; Co.
+          </p>
+        </div>
+
+        <div class="actions">
+          <!-- Test-Link: YouTube -->
+          <a
+            class="btn primary"
+            href="https://www.youtube.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span class="btn-icon">📄</span>
+            <span>Ja, ich brauche Hilfe bei der Bewerbung</span>
+          </a>
+
+          <button class="btn ghost btn-next" type="button">
+            <span>Nein, weiter zur nächsten Frage</span>
+            <span class="btn-icon">➜</span>
+          </button>
+
+          <!-- Neuer Button: direkt zur nächsten Frage -->
+          <button class="btn ghost btn-next" type="button">
+            <span>Weiter zur nächsten Frage</span>
+            <span class="btn-icon">➜</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Frage 3 -->
+      <section class="question" data-step="3">
+        <div>
+          <div class="step-label">Frage 3 von 4</div>
+          <h2 class="question-title">
+            Bist du auf der Suche nach einem Praktikum oder einer Ausbildung?
+          </h2>
+          <p class="question-subtitle">
+            In der IHK-Lehrstellenbörse und bei den Praktikumswochen BW findest du aktuelle Angebote in deiner Region.
+          </p>
+        </div>
+
+        <div class="actions">
+          <!-- Test-Link: ChatGPT -->
+          <a
+            class="btn primary"
+            href="https://chatgpt.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span class="btn-icon">🎓</span>
+            <span>Ja, ich suche eine Stelle</span>
+          </a>
+
+          <button class="btn ghost btn-next" type="button">
+            <span>Nein, ich suche etwas anderes</span>
+            <span class="btn-icon">➜</span>
+          </button>
+
+          <!-- Neuer Button: direkt zur nächsten Frage -->
+          <button class="btn ghost btn-next" type="button">
+            <span>Weiter zur nächsten Frage</span>
+            <span class="btn-icon">➜</span>
+          </button>
+        </div>
+
+        <p class="hint">
+          Optional kannst du im Code zusätzlich einen zweiten Button für
+          <a href="https://praktikumswochen-bw.de" target="_blank" rel="noopener noreferrer">
+            Praktikumswochen BW
+          </a>
+          ergänzen.
+        </p>
+      </section>
+
+      <!-- Frage 4 -->
+      <section class="question" data-step="4">
+        <div>
+          <div class="step-label">Frage 4 von 4</div>
+          <h2 class="question-title">
+            Hast du weitere Fragen zur dualen Ausbildung?
+          </h2>
+          <p class="question-subtitle">
+            Buche dir einen Termin und sprich direkt mit unseren Expertinnen und Experten rund um Ausbildung &amp; Betriebe.
+          </p>
+        </div>
+
+        <div class="actions">
+          <!-- Test-Link: nochmal Google -->
+          <a
+            class="btn primary"
+            href="https://www.google.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span class="btn-icon">📅</span>
+            <span>Ja, ich möchte einen Termin buchen</span>
+          </a>
+
+          <!-- Test-Link: "Startseite" → YouTube -->
+          <a
+            class="btn ghost"
+            href="https://www.youtube.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span>Nein, zurück zur Startseite</span>
+            <span class="btn-icon">🏠</span>
+          </a>
+        </div>
+
+        <!-- Neuer Button: Zurück zur ersten Frage im Navigator -->
+        <div class="actions" style="margin-top: 0.5rem;">
+          <button class="btn ghost btn-restart" type="button">
+            <span>Zurück zur ersten Frage</span>
+            <span class="btn-icon">↺</span>
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <p class="footer-note">
+      Hinweis für Admins: Alle externen Ziele sind als <code>href</code> hinterlegt und können im HTML leicht angepasst werden.
+    </p>
   </div>
 
   <script>
-    function parseTime(str) {
-      const [hours, minutes, seconds] = str.split(":" ).map(Number);
-      const now = new Date();
-      now.setHours(hours, minutes, seconds || 0, 0);
-      return now;
-    }
+    // "Weiter"/"Nein"-Buttons blenden einfach die nächste Frage ein
+    const nextButtons = document.querySelectorAll(".btn-next");
 
-    function calculateGap() {
-      const startInput = document.getElementById("startTime").value.trim();
-      const durationInput = document.getElementById("duration").value.trim();
-      const endInput = document.getElementById("endTime").value.trim();
-      const result = document.getElementById("result");
+    nextButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const current = btn.closest(".question");
+        if (!current) return;
 
-      try {
-        const now = new Date();
-        const start = (startInput.toLowerCase() === "now") ? now : parseTime(startInput);
-
-        const [durHours, durMinutes, durSeconds] = durationInput.split(":" ).map(Number);
-        const videoEnd = new Date(start.getTime());
-        videoEnd.setHours(videoEnd.getHours() + durHours);
-        videoEnd.setMinutes(videoEnd.getMinutes() + durMinutes);
-        videoEnd.setSeconds(videoEnd.getSeconds() + (durSeconds || 0));
-
-        const desiredEnd = parseTime(endInput);
-        const gapMillis = desiredEnd - videoEnd;
-
-        if (gapMillis > 0) {
-          const hours = Math.floor(gapMillis / (1000 * 60 * 60));
-          const minutes = Math.floor((gapMillis % (1000 * 60 * 60)) / (1000 * 60));
-          const seconds = Math.floor((gapMillis % (1000 * 60)) / 1000);
-          result.textContent = `🎬 Video përfundon në: ${videoEnd.toTimeString().substring(0,8)}\n⏱️ Hapësira: ${hours} orë, ${minutes} minuta, ${seconds} sekonda`;
-        } else {
-          result.textContent = `⚠️ Video përfundon pas ose në të njëjtën kohë me orën e caktuar.\nVideo përfundon në: ${videoEnd.toTimeString().substring(0,8)}`;
+        let next = current.nextElementSibling;
+        while (next && !next.classList.contains("question")) {
+          next = next.nextElementSibling;
         }
-      } catch (e) {
-        result.textContent = "❌ Formati gabim! Përdor stilin HH:mm:ss (p.sh. 20:15:00)";
-      }
-    }
+
+        if (next) {
+          current.classList.remove("active");
+          next.classList.add("active");
+        }
+      });
+    });
+
+    // Restart-Button: zurück zu Frage 1
+    const restartButtons = document.querySelectorAll(".btn-restart");
+    const allQuestions = document.querySelectorAll(".question");
+    const firstQuestion = document.querySelector('.question[data-step="1"]');
+
+    restartButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        allQuestions.forEach(q => q.classList.remove("active"));
+        if (firstQuestion) {
+          firstQuestion.classList.add("active");
+        }
+      });
+    });
   </script>
 </body>
 </html>
